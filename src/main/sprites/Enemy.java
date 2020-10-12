@@ -1,6 +1,6 @@
 package main.sprites;
 
-public class Obstacle implements Sprite {
+public class Enemy implements Sprite {
     @Override
     public void updateFrame() {
 

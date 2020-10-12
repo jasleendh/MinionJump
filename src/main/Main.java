@@ -1,83 +1,79 @@
 package main;
 
 import javafx.application.Application;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Group;
-import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
+import main.sprites.Cactus;
+import main.sprites.Clouds;
 import main.sprites.Player;
 
 
 public class Main extends Application {
     @Override
-    public void start(Stage stage) throws Exception{
-//        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-//        primaryStage.setTitle("Line");
-//        Pane layout = new Pane();
-//
-//        Line line1 = new Line(200,50,1000,50);
-//
-//        Scene scene = new Scene(layout,1900,1060);
-//        scene.getWindow();
-//        scene.getHeight();
-//        scene.getWidth();
-//        layout.getChildren().addAll(line1);
-//        primaryStage.setScene(scene);
-//        primaryStage.show();
+    public void start(Stage stage) throws Exception {
+
+        Image[] minionImage = new Image[16];
+        for (int i = 0; i < minionImage.length; i++) {
+            Image img = new Image(getClass().getResource("/resources/sprites/minion/" + i + ".png").toString());
+            minionImage[i] = img;
+        }
+
+        ImageView viewMinionImage = new ImageView();
 
 
+        Image[] cactusImage = new Image[6];
+        for (int i = 0; i < cactusImage.length; i++) {
+            Image img = new Image(getClass().getResource("/resources/sprites/cactus/" + i + ".png").toString());
+            cactusImage[i] = img;
+        }
+
+        ImageView viewCactusImage = new ImageView();
+        ImageView viewCactusImage2 = new ImageView();
+        ImageView viewCactusImage3 = new ImageView();
+//        viewCactusImage2.setY(710);
+//        viewCactusImage3.setY(710);
+//        for (int i = 0; i < cactusImage.length; i++) {
+//            viewCactusImage.setImage(cactusImage[i]);
+//            viewCactusImage2.setImage(cactusImage[i]);
+//            viewCactusImage3.setImage(cactusImage[i]);
+//        }
+
+        //
+        //
+        //
+
+        Image cloudImage =
+                new Image(getClass().getResource("/resources/sprites/cloud.png").toString());
+
+        ImageView viewCloudImg1 = new ImageView();
+        ImageView viewCloudImg2 = new ImageView();
+        ImageView viewCloudImg3 = new ImageView();
+        ImageView viewCloudImg4 = new ImageView();
+        ImageView viewCloudImg5 = new ImageView();
 
 
+        GameStage gameStage = new GameStage(stage, viewMinionImage, viewCactusImage,
+                viewCloudImg1);
 
-        Group root = new Group();
-        Scene scene = new Scene(root, 500, 200);
-        stage.setScene(scene);
-
-        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-
-        //set Stage boundaries to visible bounds of the main screen
-        stage.setX(primaryScreenBounds.getMinX());
-        stage.setY(primaryScreenBounds.getMinY());
-        stage.setWidth(primaryScreenBounds.getWidth());
-        stage.setHeight(primaryScreenBounds.getHeight());
-
-        Line line1 = new Line(0,primaryScreenBounds.getHeight()/1.4,
-                primaryScreenBounds.getWidth(),primaryScreenBounds.getHeight()/1.4);
-        line1.setStrokeWidth(5);
-        line1.setStroke(Color.web("#535353"));
-
-        ImageView image1 = new ImageView("resources/sprites/minion/0.png");
-        image1.setX(0);
-        image1.setY(primaryScreenBounds.getHeight()/1.8);
-
-        Player test = new Player();
-//        test.move();
-
-        root.getChildren().addAll(line1, image1);
-        stage.show();
+        Player player = new Player(viewMinionImage, minionImage, false);
+        Cactus cactus1 = new Cactus(viewCactusImage , viewCactusImage2, viewCactusImage3, cactusImage);
+        Cactus cactus2 = new Cactus(viewCactusImage , viewCactusImage2, viewCactusImage3, cactusImage);
+        Cactus cactus3 = new Cactus(viewCactusImage, viewCactusImage2, viewCactusImage3, cactusImage);
+        Clouds clouds1 = new Clouds(viewCloudImg1, viewCloudImg2, viewCloudImg3, viewCloudImg4, viewCloudImg5, cloudImage);
+        Clouds clouds2 = new Clouds(viewCloudImg1, viewCloudImg2, viewCloudImg3, viewCloudImg4, viewCloudImg5, cloudImage);
+        Clouds clouds3 = new Clouds(viewCloudImg1, viewCloudImg2, viewCloudImg3, viewCloudImg4, viewCloudImg5, cloudImage);
+        Clouds clouds4 = new Clouds(viewCloudImg1, viewCloudImg2, viewCloudImg3, viewCloudImg4, viewCloudImg5, cloudImage);
+        Clouds clouds5 = new Clouds(viewCloudImg1, viewCloudImg2, viewCloudImg3, viewCloudImg4, viewCloudImg5, cloudImage);
 
 
+        Animation animation = new Animation();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        gameStage.start(stage, viewMinionImage, viewCactusImage, viewCactusImage2,
+                viewCactusImage3, viewCloudImg1, viewCloudImg2, viewCloudImg3, viewCloudImg4,
+                viewCloudImg5, true);
+        animation.gameAnimation(player, cactus1, cactus2, cactus3, clouds1, clouds2, clouds3,
+                clouds4,clouds5);
 
 
 //        theStage.setTitle( "Timeline Example" );
